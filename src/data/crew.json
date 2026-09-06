@@ -1,68 +1,59 @@
 {
   "members": [
     {
-      "name": "Velit amet",
+      "name": "Maya Castillo",
       "title": "Editor-in-Chief",
       "role": "editor",
-      "blurb": "Vitae culpa eiusmod ut voluptate primis nostrud ut lacus.",
-      "initials": "VA"
+      "blurb": "Senior. Runs the desk, picks the lead, and still writes the Friday sports column when nobody is looking."
     },
     {
-      "name": "Enim deserunt",
+      "name": "Ethan Nguyen",
       "title": "Managing Editor",
       "role": "staff",
-      "blurb": "Et orci proident tellus nunc mi faucibus in vitae velit voluptate.",
-      "initials": "ED"
+      "blurb": "Junior. Keeps the calendar, the style guide and the coffee budget."
     },
     {
-      "name": "Ipsum id",
+      "name": "Jordan Blake",
       "title": "Sports Editor",
       "role": "staff",
-      "blurb": "Culpa aliqua exercitation pretium labore esse ex hendrerit vestibulum et.",
-      "initials": "II"
+      "blurb": "Senior. Has not missed a home game since freshman year, including the rain delays."
     },
     {
-      "name": "Curae tincidunt",
+      "name": "Priya Raman",
       "title": "Arts Editor",
       "role": "staff",
-      "blurb": "Dolore vitae laborum aliqua nunc nunc fugiat imperdiet in fugiat.",
-      "initials": "CT"
+      "blurb": "Junior. Covers theatre, band, choir and the art wing, usually in that order."
     },
     {
-      "name": "Cubilia in",
+      "name": "Sofia Alvarez",
       "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Aliqua ullamco deserunt ad labore aute elit tellus tempor ut nisi.",
-      "initials": "CI"
+      "blurb": "Sophomore. News desk. Will ask the follow-up question."
     },
     {
-      "name": "Sint officia",
+      "name": "Marcus Lee",
       "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Pretium laborum cupidatat ullamco eiusmod est consequat occaecat incididunt labore esse nulla.",
-      "initials": "SO"
+      "blurb": "Junior. Academics and clubs. Owns three planners and uses all of them."
     },
     {
-      "name": "Ex laborum",
+      "name": "Hannah Kim",
       "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Aute ullamco laboris qui enim adipiscing incididunt ut vitae enim ullamco faucibus.",
-      "initials": "EL"
+      "blurb": "Sophomore. Opinion and Dragon Life. Strong feelings about the passing period."
     },
     {
-      "name": "Duis incididunt",
+      "name": "Diego Ramirez",
       "title": "Photographer",
       "role": "staff",
-      "blurb": "Exercitation laboris faucibus pariatur culpa fugiat posuere vitae lacus.",
-      "initials": "DI"
+      "blurb": "Senior. Shoots every game, every show and most of the hallway."
     },
     {
-      "name": "Et in",
+      "name": "Rebecca Hartley",
       "title": "Adviser",
       "role": "staff",
-      "blurb": "Laboris ut dolor adipiscing feugiat curabitur ullamco nulla consequat lacus reprehenderit id pretium.",
-      "initials": "EI"
+      "blurb": "Journalism teacher. Reads every draft twice and signs off on none of the headlines she likes best."
     }
   ],
-  "placeholder": true
+  "placeholder": false
 }

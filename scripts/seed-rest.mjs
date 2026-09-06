@@ -35,10 +35,14 @@ const now = new Date();
 const storyIds = Object.fromEntries(sample.stories.map((s) => [s.id, `seed-${s.id}`]));
 const byId = {};
 const writes = [];
-writes.push(setDoc('site/crew', { members: crew.members.map((m) => ({ name: m.name, title: m.title, role: m.role, blurb: m.blurb })), placeholder: true, updatedAt: now }));
+writes.push(setDoc('site/crew', { members: crew.members.map((m) => ({ name: m.name, title: m.title, role: m.role, blurb: m.blurb })), placeholder: !!crew.placeholder, updatedAt: now }));
+// drop stale frozen articles from a previous seed (slugs may have changed)
+const listRes = await fetch(`https://firestore.googleapis.com/v1/projects/${P}/databases/(default)/documents/editions/${sample.id}/articles?pageSize=300`, { headers: { Authorization: `Bearer ${access_token}` } });
+const old = (await listRes.json()).documents || [];
+for (const d of old) writes.push({ delete: d.name });
 for (const st of sample.stories) {
   const id = storyIds[st.id];
-  const data = { authorUid: null, byline: st.byline, title: st.title, dek: st.dek, section: st.section, bodyMd: st.bodyMd, cover: st.cover, thumb: st.thumb, coverCredit: 'Placeholder photograph', wordCount: wordCount(st.bodyMd), status: 'published', editorNote: '', slug: null, publishedIn: sample.id, placeholder: true, sampleId: st.id, createdAt: now, updatedAt: now, submittedAt: now, reviewedAt: now };
+  const data = { authorUid: null, byline: st.byline, title: st.title, dek: st.dek, section: st.section, bodyMd: st.bodyMd, cover: st.cover, thumb: st.thumb, coverCredit: 'Dragon News file photo', wordCount: wordCount(st.bodyMd), status: 'published', editorNote: '', slug: null, publishedIn: sample.id, placeholder: !!sample.placeholder, sampleId: st.id, createdAt: now, updatedAt: now, submittedAt: now, reviewedAt: now };
   byId[id] = { id, ...data };
 }
 const sections = sample.sections.map((s) => ({ name: s.name, storyIds: s.storyIds.map((i) => storyIds[i]) }));

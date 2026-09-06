@@ -19,7 +19,7 @@ if (E.JOURNALIST_EMAIL && E.JOURNALIST_PASSWORD) {
 
 // 2) editor
 const ed = await signInOrCreate(E.EDITOR_EMAIL, E.EDITOR_PASSWORD);
-await setDoc(doc(db, 'site', 'crew'), { members: crew.members.map((m) => ({ name: m.name, title: m.title, role: m.role, blurb: m.blurb })), placeholder: true, updatedAt: serverTimestamp() });
+await setDoc(doc(db, 'site', 'crew'), { members: crew.members.map((m) => ({ name: m.name, title: m.title, role: m.role, blurb: m.blurb })), placeholder: !!crew.placeholder, updatedAt: serverTimestamp() });
 console.log('crew written');
 
 // 3) stories (skip if the edition already exists)
@@ -29,8 +29,8 @@ if (existing.empty) {
   for (const st of sample.stories) {
     const ref = await addDoc(collection(db, 'stories'), {
       authorUid: ed.uid, byline: st.byline, title: st.title, dek: st.dek, section: st.section, bodyMd: st.bodyMd,
-      cover: st.cover, thumb: st.thumb, coverCredit: 'Placeholder photograph', wordCount: wordCount(st.bodyMd),
-      status: 'accepted', editorNote: '', slug: null, publishedIn: null, placeholder: true, sampleId: st.id,
+      cover: st.cover, thumb: st.thumb, coverCredit: 'Dragon News file photo', wordCount: wordCount(st.bodyMd),
+      status: 'accepted', editorNote: '', slug: null, publishedIn: null, placeholder: true,  sampleId: st.id,
       createdAt: serverTimestamp(), updatedAt: serverTimestamp(), submittedAt: serverTimestamp(), reviewedAt: serverTimestamp(),
     });
     idMap[st.id] = ref.id;

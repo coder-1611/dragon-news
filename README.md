@@ -19,7 +19,7 @@ npm run build && npm run preview
 - `firestore.rules` is the source of truth for who can do what. Deploy with `firebase deploy --only firestore`.
 - `npm run rules:test` runs 48 rules assertions in the emulator (needs Java: `brew install openjdk@21`, then `export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"`).
 - `npm run bootstrap` creates the single editor account from `.env.local` (`EDITOR_EMAIL`, `EDITOR_PASSWORD`) through the one-time rules bootstrap.
-- `npm run seed` writes the placeholder crew, the placeholder journalist account and the lorem-ipsum edition, then publishes it through the same code the composer uses.
+- `npm run seed` writes the placeholder crew, the placeholder journalist account and the sample edition (invented but realistic copy), then publishes it through the same code the composer uses.
 - `node scripts/seed-rest.mjs` seeds the same public content as project owner through the Firestore REST API (works before Auth is switched on).
 - Cover photos are compressed client-side to WebP data URLs (≤150 KB) and stored in Firestore, so the free plan is enough. `src/lib/images.js` is the single place to swap in Firebase Storage later.
 
