@@ -37,7 +37,7 @@ The user's brief pins the newspaper, so candidate 1 is built. Raises taken from 
 - Masthead: **Grenze Gotisch** (variable blackletter). The American newspaper nameplate vernacular; a dragon paper earns blackletter.
 - Headlines: **Bodoni Moda** (variable, opsz 6-96). Didone headline heritage; huge at opsz 96, tight leading 0.92-1.0.
 - Body and deks: **Source Serif 4** (variable, opsz). Generous 1.6 body leading, italic deks.
-- Metadata and the whole newsroom UI: **Geist Mono**. Folio line, datelines, bylines, kickers, crawl, clock, chips. Tabular numerals everywhere.
+- Metadata and the whole newsroom UI: **Martian Mono**. Folio line, datelines, bylines, kickers, crawl, clock, chips. Tabular numerals everywhere.
 
 ## Signature element
 The halftone hero: the lead cover rendered as a maroon dot-screen on newsprint by a canvas, resolving toward the photograph under the cursor / on scroll. Registration marks in the corners. Reduced motion: static mid-resolution screen.

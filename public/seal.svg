@@ -3,7 +3,7 @@
   <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="2"/>
   <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width=".8"/>
   <circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width=".8"/>
-  <text font-family="'Geist Mono', ui-monospace, monospace" font-size="8.6" letter-spacing="2.4" fill="currentColor" font-weight="600">
+  <text font-family="'Martian Mono', ui-monospace, monospace" font-size="8.6" letter-spacing="2.4" fill="currentColor" font-weight="600">
     <textPath href="#arc" startOffset="1%">ROUND ROCK HIGH SCHOOL · DRAGONS · EST. 1913 ·</textPath>
   </text>
   <text x="60" y="73" text-anchor="middle" font-family="'Bodoni Moda', 'Didot', serif" font-size="40" font-weight="700" fill="currentColor">D</text>

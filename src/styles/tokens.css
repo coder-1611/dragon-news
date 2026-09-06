@@ -23,7 +23,7 @@
   --f-black: 'Grenze Gotisch', 'UnifrakturCook', 'Old English Text MT', serif;
   --f-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Times New Roman', serif;
   --f-body: 'Source Serif 4', 'Iowan Old Style', 'Charter', Georgia, serif;
-  --f-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --f-mono: 'Martian Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   --fs-0: clamp(.72rem, .68rem + .2vw, .8rem);
   --fs-1: clamp(.9rem, .86rem + .2vw, 1rem);

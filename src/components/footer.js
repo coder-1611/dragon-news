@@ -9,5 +9,5 @@ export function mountFooter() {
       <div class="foot-col mono"><h2>Newsroom</h2><a href="/newsroom">Sign in</a><a href="/newsroom?join=1">Join the staff</a><a href="/newsroom/desk">Your desk</a></div>
       <div class="foot-col mono"><h2>Find us</h2><address>Round Rock High School<br>201 Deep Wood Drive<br>Round Rock, TX 78681<br>512-464-6000</address></div>
     </div>
-    <div class="wrap foot-colophon mono"><span>© ${new Date().getFullYear()} Dragon News · Round Rock High School</span><span>Set in Grenze Gotisch, Bodoni Moda, Source Serif &amp; Geist Mono</span></div>`;
+    <div class="wrap foot-colophon mono"><span>© ${new Date().getFullYear()} Dragon News · Round Rock High School</span><span>Set in Grenze Gotisch, Bodoni Moda, Source Serif &amp; Martian Mono</span></div>`;
 }

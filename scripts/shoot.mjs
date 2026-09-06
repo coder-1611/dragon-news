@@ -6,7 +6,7 @@ const base = process.env.BASE || 'http://localhost:5180';
 const q = process.env.Q || '?demo=1';
 const pages = [['home', '/'], ['paper', '/paper'], ['article', '/paper/2026-09-05/__LEAD__'], ['archive', '/archive'], ['about', '/about'], ['nf', '/nothing-here'], ['auth', '/newsroom'], ['join', '/newsroom?join=1']];
 (async () => {
-  const browser = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new', args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: 'new', args: ['--no-sandbox'], protocolTimeout: 240000 });
   const errors = {};
   for (const [w, h, tag] of [[1280, 900, 'desk'], [390, 844, 'mob']]) {
     for (let [name, path] of pages) {
@@ -22,7 +22,8 @@ const pages = [['home', '/'], ['paper', '/paper'], ['article', '/paper/2026-09-0
       const sep = path.includes('?') ? '&' : '';
       await page.goto(base + path + (path.includes('?') ? '&' + q.slice(1) : q), { waitUntil: 'domcontentloaded', timeout: 60000 }).catch((e) => errs.push('nav: ' + e.message));
       await page.waitForFunction(() => !document.querySelector('.skel') && !document.getElementById('boot'), { timeout: 20000 }).catch(() => errs.push('still loading after 20s'));
-      await page.evaluate(() => Promise.all([document.fonts.ready, ...Array.from(document.images).filter((i) => !i.complete).map((i) => new Promise((r) => { i.onload = i.onerror = r; }))]));
+      await Promise.race([page.evaluate(() => Promise.all([document.fonts.ready, ...Array.from(document.images).filter((i) => !i.complete).map((i) => new Promise((r) => { i.onload = i.onerror = r; }))])), new Promise((r) => setTimeout(r, 15000))]).catch(() => {});
+      process.stderr.write(`shot ${name}-${tag}\n`);
       await new Promise((r) => setTimeout(r, 700));
       const ov = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - innerWidth);
       await page.screenshot({ path: `shots/${name}-${tag}.png`, fullPage: true });
