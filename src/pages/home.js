@@ -9,7 +9,7 @@ import { longDate } from '../lib/format.js';
 import { SECTIONS } from '../lib/sections.js';
 import { esc, $ } from '../lib/ui.js';
 
-mountMasthead({ size: 'full', current: '/' });
+mountMasthead({ size: 'hero', current: '/' });
 mountFooter();
 $('#strip').innerHTML = SECTIONS.map((s) => `<li><a href="/paper#${esc(s.toLowerCase().replace(/\s+/g, '-'))}">${esc(s)}</a></li>`).join('');
 
