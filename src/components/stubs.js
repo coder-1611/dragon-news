@@ -2,7 +2,7 @@ import { esc } from '../lib/ui.js';
 const min = (w) => Math.max(1, Math.round((w || 0) / 220));
 export function stub(s, editionId, { thumb = false } = {}) {
   return `<li class="stub"><a href="/paper/${esc(editionId)}/${esc(s.slug)}">
-    ${thumb && s.thumb ? `<img class="stub-thumb" src="${esc(s.thumb)}" alt="" loading="lazy" width="640" height="400">` : ''}
+    ${thumb && s.thumb ? `<img class="stub-thumb" src="${esc(s.thumb)}" alt="" decoding="async" width="640" height="400">` : ''}
     <h3 class="stub-h">${esc(s.title)}</h3>
     <p class="stub-x">${esc(s.excerpt)} <span class="more">Continue</span></p>
     <p class="stub-by">By ${esc(s.byline)} · ${min(s.words)} min</p>
