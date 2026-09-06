@@ -51,8 +51,9 @@ body.scrolled .rail-brand { opacity: 1; transform: none; pointer-events: auto; }
 .mast[data-size="hero"] .crawl-list li::after { color: rgba(243,237,226,.25); }
 @media (max-width: 640px) {
   .mast[data-size="hero"] .rail { grid-template-columns: 1fr auto; height: auto; padding-block: .7rem 0; row-gap: .1rem; }
-  .mast[data-size="hero"] .rail-brand { display: block; font-size: 1.7rem; }
-  .mast[data-size="hero"] .rail ul { grid-column: 1 / -1; justify-content: flex-start; gap: 1.4rem; }
+  .mast[data-size="hero"] .rail-brand { display: block; font-size: 1.7rem; grid-row: 1; grid-column: 1; }
+  .mast[data-size="hero"] .rail-cta { grid-row: 1; grid-column: 2; justify-self: end; }
+  .mast[data-size="hero"] .rail ul { grid-row: 2; grid-column: 1 / -1; justify-content: flex-start; gap: 1.4rem; }
   .mast[data-size="hero"] .rail ul a { padding-block: .8rem; }
   .mast[data-size="hero"] .rail ul a::after { bottom: .5rem; }
 }
