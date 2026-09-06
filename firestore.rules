@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signedIn() { return request.auth != null; }
+    function me() { return get(/databases/$(db)/documents/users/$(request.auth.uid)).data; }
+    function meExists() { return signedIn() && exists(/databases/$(db)/documents/users/$(request.auth.uid)); }
+    function isEditor() { return meExists() && me().role == 'editor'; }
+    function isApproved() { return meExists() && (me().status == 'approved' || me().role == 'editor'); }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function changedOnly(keys) { return request.resource.data.diff(resource.data).affectedKeys().hasOnly(keys); }
+    function validStr(v, max) { return v is string && v.size() <= max; }
+    function validSection(s) { return s in ['News', 'Sports', 'Academics', 'Clubs', 'Arts', 'Opinion', 'Dragon Life']; }
+
+    match /users/{uid} {
+      allow get: if isSelf(uid) || isEditor();
+      allow list: if isEditor();
+      allow create: if isSelf(uid)
+        && request.resource.data.role == 'journalist'
+        && request.resource.data.status == 'pending'
+        && validStr(request.resource.data.displayName, 80)
+        && request.resource.data.keys().hasOnly(['displayName', 'email', 'role', 'status', 'title', 'bio', 'photoUrl', 'createdAt']);
+      // self-edit profile only
+      allow update: if isSelf(uid) && changedOnly(['displayName', 'bio', 'photoUrl', 'updatedAt']);
+      // editor approves / rejects / titles; may never grant editor role
+      allow update: if isEditor() && changedOnly(['status', 'title', 'approvedAt', 'approvedBy', 'updatedAt'])
+        && request.resource.data.status in ['pending', 'approved', 'rejected'];
+      // BOOTSTRAP (one-time, self-closing): first editor promotes self while creating site/meta in the same batch.
+      allow update: if isSelf(uid) && changedOnly(['role', 'status', 'title', 'updatedAt'])
+        && request.resource.data.role == 'editor' && request.resource.data.status == 'approved'
+        && !exists(/databases/$(db)/documents/site/meta)
+        && getAfter(/databases/$(db)/documents/site/meta).data.editorUid == uid;
+      allow delete: if false;
+    }
+
+    match /site/meta {
+      allow read: if isEditor();
+      allow create: if signedIn() && request.resource.data.editorUid == request.auth.uid
+        && getAfter(/databases/$(db)/documents/users/$(request.auth.uid)).data.role == 'editor';
+      allow update, delete: if false;
+    }
+    match /site/crew { allow read: if true; allow write: if isEditor(); }
+
+    match /stories/{id} {
+      allow get: if isEditor() || (signedIn() && resource.data.authorUid == request.auth.uid);
+      allow list: if isEditor() || (signedIn() && resource.data.authorUid == request.auth.uid);
+      allow create: if isApproved()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.status == 'draft'
+        && validStr(request.resource.data.title, 160)
+        && validStr(request.resource.data.bodyMd, 80000)
+        && validSection(request.resource.data.section);
+      // journalist edits own story while editable; may move draft/needs_revision -> submitted
+      allow update: if isApproved() && resource.data.authorUid == request.auth.uid
+        && resource.data.status in ['draft', 'needs_revision']
+        && request.resource.data.authorUid == resource.data.authorUid
+        && request.resource.data.status in ['draft', 'submitted']
+        && validStr(request.resource.data.title, 160)
+        && validStr(request.resource.data.bodyMd, 80000)
+        && validSection(request.resource.data.section)
+        && changedOnly(['title', 'dek', 'section', 'bodyMd', 'cover', 'thumb', 'coverCredit', 'status', 'updatedAt', 'submittedAt', 'wordCount']);
+      // editor: review transitions, notes, slug/publish bookkeeping, light copy edits
+      allow update: if isEditor()
+        && request.resource.data.authorUid == resource.data.authorUid
+        && request.resource.data.status in ['draft', 'submitted', 'needs_revision', 'accepted', 'published'];
+      allow delete: if (isApproved() && resource.data.authorUid == request.auth.uid && resource.data.status == 'draft') || isEditor();
+    }
+
+    match /editions/{eid} {
+      // public list queries MUST filter status == 'published'
+      allow read: if resource.data.status == 'published' || isEditor();
+      allow write: if isEditor();
+      match /articles/{slug} {
+        allow read: if get(/databases/$(db)/documents/editions/$(eid)).data.status == 'published' || isEditor();
+        allow write: if isEditor();
+      }
+    }
+  }
+}

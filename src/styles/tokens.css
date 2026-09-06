@@ -1,0 +1,53 @@
+:root {
+  /* palette: named from the materials */
+  --maroon: #6B0F1A;
+  --maroon-deep: #3F0A12;
+  --maroon-ink: #521018;
+  --maroon-tint: #EBD9D9;
+  --press: #17110F;
+  --press-2: #241B18;
+  --ink: #1A1412;
+  --ink-2: #4B403B;
+  --ink-3: #7A6C65;
+  --newsprint: #F3EDE2;
+  --newsprint-2: #EAE2D3;
+  --newsprint-3: #E4DCCB;
+  --sheet: #F8F4EB;
+  --hairline: #CFC5B2;
+  --hairline-2: #B9AD97;
+  --cyan: #0FA3B1;
+  --gold: #D4A72C;
+  --danger: #A32D2D;
+
+  /* type */
+  --f-black: 'Grenze Gotisch', 'UnifrakturCook', 'Old English Text MT', serif;
+  --f-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Times New Roman', serif;
+  --f-body: 'Source Serif 4', 'Iowan Old Style', 'Charter', Georgia, serif;
+  --f-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --fs-0: clamp(.72rem, .68rem + .2vw, .8rem);
+  --fs-1: clamp(.9rem, .86rem + .2vw, 1rem);
+  --fs-2: clamp(1.05rem, 1rem + .3vw, 1.2rem);
+  --fs-3: clamp(1.3rem, 1.15rem + .7vw, 1.75rem);
+  --fs-4: clamp(1.7rem, 1.4rem + 1.5vw, 2.6rem);
+  --fs-5: clamp(2.4rem, 1.8rem + 3vw, 4.4rem);
+  --fs-6: clamp(3rem, 2rem + 6vw, 7rem);
+
+  /* space */
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap: 1320px;
+  --measure: 68ch;
+  --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem; --s-8: 4.5rem; --s-9: 7rem;
+
+  /* motion */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --t-fast: 160ms;
+  --t-med: 320ms;
+  --t-slow: 640ms;
+
+  --shadow-sheet: 0 1px 0 rgba(23,17,15,.06), 0 12px 32px -18px rgba(23,17,15,.35), 0 40px 80px -48px rgba(63,10,18,.25);
+  --shadow-pop: 0 2px 6px -2px rgba(23,17,15,.2), 0 18px 40px -20px rgba(23,17,15,.35);
+  --radius: 2px;
+  color-scheme: light;
+}

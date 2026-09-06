@@ -1,0 +1,68 @@
+{
+  "members": [
+    {
+      "name": "Velit amet",
+      "title": "Editor-in-Chief",
+      "role": "editor",
+      "blurb": "Vitae culpa eiusmod ut voluptate primis nostrud ut lacus.",
+      "initials": "VA"
+    },
+    {
+      "name": "Enim deserunt",
+      "title": "Managing Editor",
+      "role": "staff",
+      "blurb": "Et orci proident tellus nunc mi faucibus in vitae velit voluptate.",
+      "initials": "ED"
+    },
+    {
+      "name": "Ipsum id",
+      "title": "Sports Editor",
+      "role": "staff",
+      "blurb": "Culpa aliqua exercitation pretium labore esse ex hendrerit vestibulum et.",
+      "initials": "II"
+    },
+    {
+      "name": "Curae tincidunt",
+      "title": "Arts Editor",
+      "role": "staff",
+      "blurb": "Dolore vitae laborum aliqua nunc nunc fugiat imperdiet in fugiat.",
+      "initials": "CT"
+    },
+    {
+      "name": "Cubilia in",
+      "title": "Staff Writer",
+      "role": "staff",
+      "blurb": "Aliqua ullamco deserunt ad labore aute elit tellus tempor ut nisi.",
+      "initials": "CI"
+    },
+    {
+      "name": "Sint officia",
+      "title": "Staff Writer",
+      "role": "staff",
+      "blurb": "Pretium laborum cupidatat ullamco eiusmod est consequat occaecat incididunt labore esse nulla.",
+      "initials": "SO"
+    },
+    {
+      "name": "Ex laborum",
+      "title": "Staff Writer",
+      "role": "staff",
+      "blurb": "Aute ullamco laboris qui enim adipiscing incididunt ut vitae enim ullamco faucibus.",
+      "initials": "EL"
+    },
+    {
+      "name": "Duis incididunt",
+      "title": "Photographer",
+      "role": "staff",
+      "blurb": "Exercitation laboris faucibus pariatur culpa fugiat posuere vitae lacus.",
+      "initials": "DI"
+    },
+    {
+      "name": "Et in",
+      "title": "Adviser",
+      "role": "staff",
+      "blurb": "Laboris ut dolor adipiscing feugiat curabitur ullamco nulla consequat lacus reprehenderit id pretium.",
+      "initials": "EI"
+    }
+  ],
+  "placeholder": true
+}

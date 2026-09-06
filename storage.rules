@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function approved() {
+      return request.auth != null &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.status == 'approved';
+    }
+    function editor() {
+      return request.auth != null &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'editor';
+    }
+    match /covers/{uid}/{file} {
+      allow read: if true;
+      allow write: if (approved() || editor()) && request.auth.uid == uid
+        && request.resource.contentType.matches('image/.*') && request.resource.size < 5 * 1024 * 1024;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+    match /crew/{file} { allow read: if true; allow write: if editor(); }
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+dist
+.env.local
+.firebase
+.vercel
+.DS_Store
+shots
+.env*
+.impeccable/
+CREDENTIALS.md
