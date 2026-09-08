@@ -12,5 +12,5 @@ export function renderCrew(host, crew, { join = true } = {}) {
       <div><h3 class="crew-name">${esc(m.name)}</h3><p class="crew-title">${esc(m.title)}</p></div>
       ${m.blurb ? `<p class="crew-blurb">${esc(m.blurb)}</p>` : ''}
     </article>`).join('') + (join ? `
-    <div class="crew-join" data-reveal><p>Your name goes here.</p><a class="btn" href="/newsroom?join=1">Join the newsroom</a></div>` : '');
+    <div class="crew-join" data-reveal><p>Your name goes here.</p><a class="btn" href="/newsroom?join=1">Join the staff</a></div>` : '');
 }

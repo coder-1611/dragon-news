@@ -1,19 +1,15 @@
 // Realistic placeholder content (invented, school-paper voice). Replaces the lorem generator.
 import { writeFileSync } from 'node:fs';
 const crew = [
-  { name: 'Maya Castillo', title: 'Editor-in-Chief', role: 'editor', blurb: 'Senior. Runs the desk, picks the lead, and still writes the Friday sports column when nobody is looking.' },
-  { name: 'Ethan Nguyen', title: 'Managing Editor', role: 'staff', blurb: 'Junior. Keeps the calendar, the style guide and the coffee budget.' },
-  { name: 'Jordan Blake', title: 'Sports Editor', role: 'staff', blurb: 'Senior. Has not missed a home game since freshman year, including the rain delays.' },
-  { name: 'Priya Raman', title: 'Arts Editor', role: 'staff', blurb: 'Junior. Covers theatre, band, choir and the art wing, usually in that order.' },
-  { name: 'Sofia Alvarez', title: 'Staff Writer', role: 'staff', blurb: 'Sophomore. News desk. Will ask the follow-up question.' },
-  { name: 'Marcus Lee', title: 'Staff Writer', role: 'staff', blurb: 'Junior. Academics and clubs. Owns three planners and uses all of them.' },
-  { name: 'Hannah Kim', title: 'Staff Writer', role: 'staff', blurb: 'Sophomore. Opinion and Dragon Life. Strong feelings about the passing period.' },
-  { name: 'Diego Ramirez', title: 'Photographer', role: 'staff', blurb: 'Senior. Shoots every game, every show and most of the hallway.' },
-  { name: 'Rebecca Hartley', title: 'Adviser', role: 'staff', blurb: 'Journalism teacher. Reads every draft twice and signs off on none of the headlines she likes best.' },
+  { name: 'Brent Bullis', title: 'Editor-in-Chief', role: 'editor', blurb: '' },
+  { name: 'Benjamin Giles', title: 'Staff Writer', role: 'staff', blurb: '' },
+  { name: 'Kolbe Berend', title: 'Staff Writer', role: 'staff', blurb: '' },
+  { name: 'Rajvi Rangari', title: 'Staff Writer', role: 'staff', blurb: '' },
+  { name: 'Claire', title: 'Staff Writer', role: 'staff', blurb: '' },
 ];
 const P = (...ps) => ps.join('\n\n');
 const stories = [
-  { id: 'lead', section: 'Sports', byline: 'Jordan Blake',
+  { id: 'lead', section: 'Sports', byline: 'Kolbe Berend',
     title: 'Dragons open district play Friday under new lights at Dragon Stadium',
     dek: 'A summer-long lighting overhaul is finished, and the first home district game will be the first time most students see it switched on.',
     bodyMd: P(
@@ -25,7 +21,7 @@ const stories = [
       'Gates open at 6 p.m. and kickoff is at 7:30. Student tickets are free with an ID at the Dragon Nation table on the home side; visitors pay at the gate. The band performs its full show at halftime for the first time this season, and the senior class will be recognized before the anthem. Parking on Deep Wood Drive fills by 6:30, so the district is running shuttles from the practice lots.',
       'The Dragons have won their district opener in each of the past three seasons. Whether that streak continues, Friday is the night the stadium finally looks the way it was meant to.'
     ) },
-  { id: 's2', section: 'News', byline: 'Sofia Alvarez',
+  { id: 's2', section: 'News', byline: 'Rajvi Rangari',
     title: 'New parking permit system goes live Monday, and the old hang tags stop working',
     dek: 'Student drivers now register plates online. The school says lines at the front office should disappear; students say they will believe it when they see it.',
     bodyMd: P(
@@ -36,7 +32,7 @@ const stories = [
       'Students who share a car with a sibling or drive a parent\'s vehicle some days will need to register each plate, up to three per permit. Anyone who changes cars mid-year has to update the portal before parking. "The system only knows what you tell it," Mbeki said.',
       'Senior lot assignments are unchanged. Juniors remain in the Deep Wood lot, and the overflow lot behind the tennis courts opens once the main lots fill.'
     ) },
-  { id: 's3', section: 'Academics', byline: 'Marcus Lee',
+  { id: 's3', section: 'Academics', byline: 'Benjamin Giles',
     title: 'AP exam registration opens next week with an earlier deadline than last year',
     dek: 'The College Board moved the fall ordering window up. Miss it and the late fee is $40 per exam.',
     bodyMd: P(
@@ -47,7 +43,7 @@ const stories = [
       '## Study sessions start early',
       'The National Honor Society is running free Saturday review sessions in the library beginning in January, one subject per week. A sign-up sheet is posted outside room B214.'
     ) },
-  { id: 's4', section: 'Clubs', byline: 'Marcus Lee',
+  { id: 's4', section: 'Clubs', byline: 'Benjamin Giles',
     title: 'Robotics team starts over with a new drivetrain and a younger roster',
     dek: 'After graduating seven seniors, Dragon Robotics is rebuilding from the wheels up ahead of the regional qualifier in November.',
     bodyMd: P(
@@ -58,7 +54,7 @@ const stories = [
       'The biggest change is a swerve drivetrain, which lets the robot move in any direction without turning first. It is faster and far harder to program. Sophomore Aiden Park is leading the software group. "Last year I was the person handing people zip ties," Park said. "This year I am the reason the robot drives into a wall. It is a promotion."',
       'The team is also fundraising for a second competition entry fee. A parts drive runs through the end of the month; a list of what they need is posted on the club board outside the shop.'
     ) },
-  { id: 's5', section: 'Arts', byline: 'Priya Raman',
+  { id: 's5', section: 'Arts', byline: 'Claire',
     title: 'Theatre picks "Our Town" for the fall play, and auditions are open to everyone',
     dek: 'Director Sam Whitaker wants a cast that looks like the school. No experience required, but bring a monologue.',
     bodyMd: P(
@@ -69,7 +65,7 @@ const stories = [
       '## Crew needs people too',
       'Technical theatre is recruiting for lights, sound, costumes and stage management. No audition, just show up to the crew interest meeting on Sept. 18. Performances are Nov. 13 through 15 in the Performing Arts Center. Tickets go on sale in October.'
     ) },
-  { id: 's6', section: 'Opinion', byline: 'Hannah Kim',
+  { id: 's6', section: 'Opinion', byline: 'Rajvi Rangari',
     title: 'Opinion: five minutes is not a passing period, it is a sprint',
     dek: 'The campus is a quarter mile end to end. The bell schedule pretends it is not.',
     bodyMd: P(
@@ -81,7 +77,7 @@ const stories = [
       'Give us seven minutes back, or six, or five plus a rule that says nobody is tardy if they are inside the building. Other 6A campuses in the district run six and seven minutes. Ours is the biggest building. It should have the longest walk.',
       'This is the opinion of the writer and not of Dragon News or Round Rock High School.'
     ) },
-  { id: 's7', section: 'Dragon Life', byline: 'Hannah Kim',
+  { id: 's7', section: 'Dragon Life', byline: 'Claire',
     title: 'Homecoming week: the dress-up days, the parade route and where to be Friday',
     dek: 'Student Council released the schedule. Here is the whole week on one page.',
     bodyMd: P(
@@ -92,7 +88,7 @@ const stories = [
       '## Parade and game',
       'The parade steps off from the Deep Wood parking lot at 4:30 p.m. Friday and loops through downtown Round Rock before returning to the stadium. Clubs building floats should have them in the lot by 3:45. The homecoming court is announced at halftime of the game. The dance is Saturday in the main gym from 8 to 11 p.m.; tickets are $15 in advance and $20 at the door.'
     ) },
-  { id: 's8', section: 'Sports', byline: 'Jordan Blake',
+  { id: 's8', section: 'Sports', byline: 'Kolbe Berend',
     title: 'Volleyball\'s freshman setter is already running the offense',
     dek: 'Coaches did not expect to start a ninth-grader at setter. Then they watched her practice.',
     bodyMd: P(

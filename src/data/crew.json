@@ -1,58 +1,34 @@
 {
   "members": [
     {
-      "name": "Maya Castillo",
+      "name": "Brent Bullis",
       "title": "Editor-in-Chief",
       "role": "editor",
-      "blurb": "Senior. Runs the desk, picks the lead, and still writes the Friday sports column when nobody is looking."
+      "blurb": ""
     },
     {
-      "name": "Ethan Nguyen",
-      "title": "Managing Editor",
-      "role": "staff",
-      "blurb": "Junior. Keeps the calendar, the style guide and the coffee budget."
-    },
-    {
-      "name": "Jordan Blake",
-      "title": "Sports Editor",
-      "role": "staff",
-      "blurb": "Senior. Has not missed a home game since freshman year, including the rain delays."
-    },
-    {
-      "name": "Priya Raman",
-      "title": "Arts Editor",
-      "role": "staff",
-      "blurb": "Junior. Covers theatre, band, choir and the art wing, usually in that order."
-    },
-    {
-      "name": "Sofia Alvarez",
+      "name": "Benjamin Giles",
       "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Sophomore. News desk. Will ask the follow-up question."
+      "blurb": ""
     },
     {
-      "name": "Marcus Lee",
+      "name": "Kolbe Berend",
       "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Junior. Academics and clubs. Owns three planners and uses all of them."
+      "blurb": ""
     },
     {
-      "name": "Hannah Kim",
+      "name": "Rajvi Rangari",
       "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Sophomore. Opinion and Dragon Life. Strong feelings about the passing period."
+      "blurb": ""
     },
     {
-      "name": "Diego Ramirez",
-      "title": "Photographer",
+      "name": "Claire",
+      "title": "Staff Writer",
       "role": "staff",
-      "blurb": "Senior. Shoots every game, every show and most of the hallway."
-    },
-    {
-      "name": "Rebecca Hartley",
-      "title": "Adviser",
-      "role": "staff",
-      "blurb": "Journalism teacher. Reads every draft twice and signs off on none of the headlines she likes best."
+      "blurb": ""
     }
   ],
   "placeholder": false

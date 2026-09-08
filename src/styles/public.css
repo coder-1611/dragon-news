@@ -117,7 +117,7 @@ body.scrolled .rail-brand { opacity: 1; transform: none; pointer-events: auto; }
 .crew-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: end; margin-bottom: 2.5rem; }
 .crew-intro p { color: var(--ink-2); max-width: 46ch; text-wrap: pretty; }
 @media (max-width: 760px) { .crew-intro { grid-template-columns: 1fr; } }
-.crew-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0; border-top: 1px solid var(--hairline); border-left: 1px solid var(--hairline); }
+.crew-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0; border-top: 1px solid var(--hairline); border-left: 1px solid var(--hairline); }
 .crew-card { padding: 1.5rem 1.4rem 1.6rem; border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); display: grid; gap: .8rem; align-content: start; transition: background var(--t-med); }
 .crew-card:hover { background: var(--sheet); }
 .crew-card.is-editor { background: var(--press); color: var(--newsprint); }
@@ -127,7 +127,8 @@ body.scrolled .rail-brand { opacity: 1; transform: none; pointer-events: auto; }
 .crew-title { font-family: var(--f-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .14em; color: var(--maroon); }
 .crew-blurb { font-size: var(--fs-1); opacity: .8; line-height: 1.5; }
 .crew-join { padding: 1.5rem 1.4rem; border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); display: grid; align-content: center; gap: 1rem; text-align: center; background: var(--newsprint-2); }
-.crew-join p { font-family: var(--f-display); font-variation-settings: "opsz" 40; font-size: var(--fs-3); line-height: 1.05; }
+.crew-join p { font-family: var(--f-display); font-variation-settings: "opsz" 40; font-size: var(--fs-2); line-height: 1.1; font-weight: 800; }
+.crew-join .btn { padding-inline: .85rem; font-size: .68rem; width: 100%; }
 .placeholder-note { font-family: var(--f-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); display: flex; gap: .8ch; align-items: center; }
 .placeholder-note::before { content: ""; width: .6rem; height: .6rem; border: 1px dashed var(--ink-3); flex: none; }
 
