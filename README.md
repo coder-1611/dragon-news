@@ -35,3 +35,18 @@ npm run build && npm run preview
 ## Design
 
 See `THESIS.md` (the concept) and `DESIGN.md` (the system as built).
+
+## Photographs
+
+Cover photos are **self-hosted** in `public/img/covers/` and are never fetched from a third-party
+host: an ad blocker or a school network filter can block an unknown image CDN, which previously
+made the front page and the halftone hero come up empty. `node scripts/fetch-photos.mjs` refreshes
+them from Wikimedia Commons (rate-limit aware) and re-encodes each one with ffmpeg to a 1600px
+cover under 150 KB and a 640px thumbnail under 36 KB. Attribution for each file lives in
+`src/data/photo-credits.json` and is printed under every photo.
+
+These are placeholders standing in for real Dragon photography. Replace them by uploading covers
+in the newsroom; the credit line comes from the story's own "Photo credit" field.
+
+If every image fails to load anyway, the hero draws its dot field from a generated luminance map
+and each missing photo keeps its box as a dot-screen tile, so the page never silently loses parts.

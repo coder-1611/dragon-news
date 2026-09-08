@@ -42,7 +42,7 @@ const old = (await listRes.json()).documents || [];
 for (const d of old) writes.push({ delete: d.name });
 for (const st of sample.stories) {
   const id = storyIds[st.id];
-  const data = { authorUid: null, byline: st.byline, title: st.title, dek: st.dek, section: st.section, bodyMd: st.bodyMd, cover: st.cover, thumb: st.thumb, coverCredit: 'Dragon News file photo', wordCount: wordCount(st.bodyMd), status: 'published', editorNote: '', slug: null, publishedIn: sample.id, placeholder: !!sample.placeholder, sampleId: st.id, createdAt: now, updatedAt: now, submittedAt: now, reviewedAt: now };
+  const data = { authorUid: null, byline: st.byline, title: st.title, dek: st.dek, section: st.section, bodyMd: st.bodyMd, cover: st.cover, thumb: st.thumb, coverCredit: st.coverCredit || 'Dragon News file photo', wordCount: wordCount(st.bodyMd), status: 'published', editorNote: '', slug: null, publishedIn: sample.id, placeholder: !!sample.placeholder, sampleId: st.id, createdAt: now, updatedAt: now, submittedAt: now, reviewedAt: now };
   byId[id] = { id, ...data };
 }
 const sections = sample.sections.map((s) => ({ name: s.name, storyIds: s.storyIds.map((i) => storyIds[i]) }));

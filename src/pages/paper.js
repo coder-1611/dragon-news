@@ -33,7 +33,7 @@ async function main() {
         <p class="lead-by">${esc(L.section)} · By ${esc(L.byline)} · ${min} min read</p>
         <p class="lead-x">${esc(L.excerpt)} <a class="more" href="/paper/${esc(id)}/${esc(L.slug)}">Continue reading</a></p>
       </div>
-      ${L.cover ? `<figure class="lead-fig"><a href="/paper/${esc(id)}/${esc(L.slug)}"><img src="${esc(L.cover)}" alt="" width="1600" height="1200" fetchpriority="high"></a><figcaption>Lead photograph · Dragon News</figcaption></figure>` : ''}
+      ${L.cover ? `<figure class="lead-fig"><a href="/paper/${esc(id)}/${esc(L.slug)}"><img src="${esc(L.cover)}" alt="" width="1600" height="1200" fetchpriority="high"></a><figcaption>${esc(L.coverCredit || 'Dragon News file photo')}</figcaption></figure>` : ''}
     </section>
     <div class="columns">
       ${S.sections.map((sec, i) => `

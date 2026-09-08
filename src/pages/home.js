@@ -30,8 +30,10 @@ async function main() {
     $('[data-lead-title]').textContent = L.title;
     $('[data-lead-by]').textContent = `${L.section} · By ${L.byline}`;
     slip.hidden = false;
-    if (L.cover) mountHalftone(canvas, L.cover, { onFail: () => { canvas.hidden = true; fb.src = L.cover; fb.hidden = false; tint.hidden = false; } });
+    mountHalftone(canvas, L.cover || '', { onFail: () => { canvas.hidden = true; fb.src = L.cover; fb.hidden = false; tint.hidden = false; } });
   }
+
+  if (!edition) mountHalftone(canvas, '');
 
   // today
   const body = $('#today-body');

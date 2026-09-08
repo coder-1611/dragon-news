@@ -104,8 +104,10 @@ const stories = [
       'The Dragons open the second half of district play at home Tuesday. Reyes said the goal is simple. "Serve tough, pass clean, and let Ava do the rest," she said. Lindqvist, asked about the pressure, shrugged. "I just have to get it to the hitters," she said. "They do the hard part."'
     ) },
 ];
-const covers = { lead: 41, s2: 42, s3: 43, s4: 44, s5: 45, s6: 46, s7: 47, s8: 48 };
-const out = stories.map((s) => ({ ...s, cover: `https://picsum.photos/seed/rrhs-${covers[s.id]}/1600/1000`, thumb: `https://picsum.photos/seed/rrhs-${covers[s.id]}/640/400` }));
+// Covers are self-hosted in public/img/covers so no third-party host can break the page.
+import { readFileSync } from 'node:fs';
+const credits = JSON.parse(readFileSync(new URL('../src/data/photo-credits.json', import.meta.url), 'utf8'));
+const out = stories.map((s) => ({ ...s, cover: `/img/covers/${s.id}.jpg`, thumb: `/img/covers/${s.id}-t.jpg`, coverCredit: credits[s.id]?.credit || 'Dragon News file photo' }));
 const order = ['News', 'Sports', 'Academics', 'Clubs', 'Arts', 'Opinion', 'Dragon Life'];
 const edition = { id: '2026-09-05', date: '2026-09-05', status: 'published', lead: 'lead', sections: order.map((name) => ({ name, storyIds: out.filter((s) => s.section === name && s.id !== 'lead').map((s) => s.id) })).filter((s) => s.storyIds.length), stories: out, placeholder: false };
 writeFileSync(new URL('../src/data/sample-edition.json', import.meta.url), JSON.stringify(edition, null, 2));

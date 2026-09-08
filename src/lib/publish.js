@@ -14,6 +14,7 @@ export function summarize(story, slug) {
     byline: story.byline || 'Staff Writer',
     thumb: story.thumb || story.cover || null,
     cover: story.cover || null,
+    coverCredit: story.coverCredit || '',
     excerpt: excerpt(story.bodyMd, 28),
     words: wordCount(story.bodyMd),
   };

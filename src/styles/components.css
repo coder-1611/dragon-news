@@ -116,6 +116,15 @@
   [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); transition-delay: var(--d, 0ms); }
   [data-reveal].in { opacity: 1; transform: none; }
 }
+/* a photo that did not load: keep the box, show the dot screen */
+img.img-missing {
+  background-color: var(--newsprint-2);
+  background-image: radial-gradient(var(--hairline-2) 1.1px, transparent 1.2px);
+  background-size: 9px 9px;
+  border: 1px solid var(--hairline);
+  min-height: 6rem;
+}
+
 /* avatar monogram */
 .avatar { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--maroon); color: var(--maroon); font-family: var(--f-display); font-variation-settings: "opsz" 40; font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; background: var(--sheet); position: relative; }
 .avatar::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; border: .5px solid color-mix(in oklab, var(--maroon) 40%, transparent); }

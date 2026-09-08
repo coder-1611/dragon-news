@@ -3,7 +3,14 @@ import { longDate, wireDate, clockCT, todayId } from '../lib/format.js';
 
 const NAV = [['/paper', "Today's Paper"], ['/archive', 'Archive'], ['/about', 'About & Crew']];
 
-document.addEventListener('error', (e) => { if (e.target?.tagName === 'IMG') e.target.style.display = 'none'; }, true);
+// A photo that fails to load keeps its box and shows a dot-screen tile, so nothing
+// silently disappears the way a display:none handler would hide it.
+document.addEventListener('error', (e) => {
+  const el = e.target;
+  if (el?.tagName !== 'IMG' || el.classList.contains('img-missing')) return;
+  el.classList.add('img-missing');
+  el.removeAttribute('src');
+}, true);
 
 export function mountMasthead({ size = 'compact', current = '' } = {}) {
   const host = document.getElementById('mast');
