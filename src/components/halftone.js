@@ -109,8 +109,13 @@ export function mountHalftone(canvas, src, { onFail } = {}) {
   }
   function frame(now) {
     if (!running) return;
-    if (!pointerActive) { const t = (now - t0) / 1000; focus.tx = .62 + Math.sin(t * .21) * .22; focus.ty = .45 + Math.sin(t * .17 + 1.3) * .2; }
-    focus.x += (focus.tx - focus.x) * .08; focus.y += (focus.ty - focus.y) * .08;
+    if (pointerActive) {
+      focus.x = focus.tx; focus.y = focus.ty;          // the loupe tracks the cursor with no lag
+    } else {
+      const t = (now - t0) / 1000;
+      focus.tx = .62 + Math.sin(t * .21) * .22; focus.ty = .45 + Math.sin(t * .17 + 1.3) * .2;
+      focus.x += (focus.tx - focus.x) * .08; focus.y += (focus.ty - focus.y) * .08;   // idle drift stays eased
+    }
     draw();
     raf = requestAnimationFrame(frame);
   }
@@ -119,7 +124,13 @@ export function mountHalftone(canvas, src, { onFail } = {}) {
 
   function bindMotion() {
     const hero = canvas.parentElement;
-    hero.addEventListener('pointermove', (e) => { const r = canvas.getBoundingClientRect(); focus.tx = (e.clientX - r.left) / r.width; focus.ty = (e.clientY - r.top) / r.height; pointerActive = true; });
+    hero.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      focus.tx = (e.clientX - r.left) / r.width; focus.ty = (e.clientY - r.top) / r.height;
+      focus.x = focus.tx; focus.y = focus.ty;
+      pointerActive = true;
+      if (!running) draw();                            // repaint even when the loop is paused
+    }, { passive: true });
     hero.addEventListener('pointerleave', () => { pointerActive = false; });
     new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop())).observe(canvas);
     document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
