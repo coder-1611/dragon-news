@@ -24,12 +24,26 @@ const { body, actions } = mountShell({ session: s, title: story ? (editable ? 'E
 
 function renderActions() {
   const st = story?.status || 'draft';
-  actions.innerHTML = `${statusWord(st)}
-    ${editable ? `<button class="btn btn-ghost" id="save" type="button">Save draft</button>` : ''}
-    ${editable && (!story || ['draft', 'needs_revision'].includes(st)) ? `<button class="btn" id="submit" type="button">Submit to editor</button>` : ''}
-    ${story && st === 'draft' && (mine || editor) ? `<button class="btn btn-danger btn-sm" id="del" type="button">Delete</button>` : ''}`;
-  $('#save')?.addEventListener('click', () => save('draft'));
+  let b = '';
+  if (editable) {
+    b += `<button class="btn btn-ghost" id="save" type="button">${editor && !mine ? 'Save changes' : 'Save draft'}</button>`;
+    if (editor) {
+      // The editor's own story never goes through the queue: it is marked ready and placed in an edition.
+      // Someone else's submitted story can be copy-edited here and accepted in the same place.
+      if ((mine && ['draft', 'needs_revision', 'submitted'].includes(st)) || (!mine && st === 'submitted'))
+        b += `<button class="btn" id="accept" type="button">${mine ? 'Ready to print' : 'Accept for print'}</button>`;
+      if (st === 'accepted') b += `<a class="btn" href="/newsroom/edition">Place in an edition</a>`;
+      if (!mine && st === 'submitted') b += `<a class="btn btn-ghost btn-sm" href="/newsroom/editor?tab=queue">Back to queue</a>`;
+    } else if (['draft', 'needs_revision'].includes(st)) {
+      b += `<button class="btn" id="submit" type="button">Submit to editor</button>`;
+    }
+  }
+  if (story && st === 'published' && story.publishedIn) b += `<a class="btn btn-ghost" href="/paper/${esc(story.publishedIn)}/${esc(story.slug)}">Read in print</a>`;
+  if (story && st === 'draft' && (mine || editor)) b += `<button class="btn btn-danger btn-sm" id="del" type="button">Delete</button>`;
+  actions.innerHTML = `${statusWord(st)} ${b}`;
+  $('#save')?.addEventListener('click', () => save(null));
   $('#submit')?.addEventListener('click', () => save('submitted'));
+  $('#accept')?.addEventListener('click', () => save('accepted'));
   $('#del')?.addEventListener('click', async () => { if (!confirm('Delete this draft for good?')) return; try { await deleteStory(id); location.href = '/newsroom/desk'; } catch (e) { toast(e.message, 'error'); } });
 }
 
@@ -109,21 +123,28 @@ function rerenderCover() {
 }
 if (editable) bindCover();
 
-async function save(status) {
+async function save(transition) {
   sync();
-  if (status === 'submitted') {
-    if (state.title.trim().length < 4) return toast('Give the story a headline first.', 'error');
-    if (wordCount(state.bodyMd) < 40) return toast('A story needs at least 40 words before it goes to the editor.', 'error');
-    if (!confirm('Send this story to the editor? You will not be able to edit it unless it comes back with a note.')) return;
+  const status = transition || story?.status || 'draft';
+  if (transition) {
+    if (state.title.trim().length < 2) return toast('Give the story a headline first.', 'error');
+    if (!state.bodyMd.trim()) return toast('The story is empty.', 'error');
+    if (transition === 'submitted' && !confirm('Send this story to the editor? You will not be able to edit it unless it comes back with a note.')) return;
   }
   const data = { title: state.title.trim() || 'Untitled', dek: state.dek.trim(), section: state.section, bodyMd: state.bodyMd, cover: state.cover, thumb: state.thumb, coverCredit: state.coverCredit.trim(), wordCount: wordCount(state.bodyMd), status };
-  if (status === 'submitted') data.submittedAt = serverTimestamp();
-  $('#save') && ($('#save').disabled = true); $('#submit') && ($('#submit').disabled = true);
+  if (transition === 'submitted') data.submittedAt = serverTimestamp();
+  if (transition === 'accepted') { data.reviewedAt = serverTimestamp(); data.editorNote = ''; }
+  ['#save', '#submit', '#accept'].forEach((sel) => { const el = $(sel); if (el) el.disabled = true; });
   try {
-    if (!id) { id = await createStory({ ...data, status: 'draft', authorUid: s.user.uid, byline: s.profile.displayName }); if (status === 'submitted') await updateStory(id, { status, submittedAt: serverTimestamp() }); history.replaceState(null, '', `/newsroom/write?id=${id}`); }
-    else await updateStory(id, data);
-    toast(status === 'submitted' ? 'Sent to the editor.' : 'Draft saved.', 'success');
-    if (status === 'submitted') setTimeout(() => (location.href = '/newsroom/desk'), 700);
-    else { story = { ...(story || {}), ...data, id, byline: story?.byline || s.profile.displayName, status: story?.status === 'needs_revision' ? 'needs_revision' : 'draft' }; renderActions(); }
+    if (!id) {
+      id = await createStory({ ...data, status: 'draft', authorUid: s.user.uid, byline: s.profile.displayName });
+      if (transition) { const { status: _s, ...rest } = data; await updateStory(id, { status, ...(transition === 'submitted' ? { submittedAt: serverTimestamp() } : { reviewedAt: serverTimestamp(), editorNote: '' }) }); }
+      history.replaceState(null, '', `/newsroom/write?id=${id}`);
+    } else await updateStory(id, data);
+    if (transition === 'submitted') { toast('Sent to the editor.', 'success'); setTimeout(() => (location.href = '/newsroom/desk'), 700); return; }
+    if (transition === 'accepted') { toast(mine ? 'Ready to print. Now place it in an edition.' : 'Accepted for print.', 'success'); setTimeout(() => (location.href = mine ? '/newsroom/edition' : '/newsroom/editor?tab=queue'), 800); return; }
+    toast('Saved.', 'success');
+    story = { ...(story || {}), ...data, id, byline: story?.byline || s.profile.displayName };
+    renderActions();
   } catch (e) { console.error(e); toast('Could not save: ' + (e.message || e), 'error'); renderActions(); }
 }

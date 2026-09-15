@@ -10,7 +10,9 @@ const { body } = mountShell({ session: s, title: 'My desk', sub: `${s.profile.ti
 
 async function render() {
   body.innerHTML = `<div class="panel"><h2>My stories <span id="count"></span></h2><div id="list"><div class="skel" style="height:8rem"></div></div></div>
-  <div class="panel"><h2>How it works</h2><ol class="prose" style="font-size:1rem;padding-left:1.2em;list-style:decimal;max-width:none"><li>Write a story and save it as a draft. Only you can see drafts.</li><li>Submit it. The editor reads it and either accepts it or sends it back with a note.</li><li>Accepted stories are placed into an edition by the editor. When the edition is published, your byline is in print.</li></ol></div>`;
+  <div class="panel"><h2>How it works</h2>${s.profile.role === 'editor'
+    ? `<ol class="prose" style="font-size:1rem;padding-left:1.2em;list-style:decimal;max-width:none"><li>Write your story and press <b>Ready to print</b>. Your own stories skip the queue.</li><li>Writers' stories arrive under <a href="/newsroom/editor?tab=queue">Staff &amp; queue</a>. Accept them or send them back with a note.</li><li>Open <a href="/newsroom/edition">Editions</a>, pick the lead, order the sections and publish. That is the paper.</li></ol>`
+    : `<ol class="prose" style="font-size:1rem;padding-left:1.2em;list-style:decimal;max-width:none"><li>Write a story and save it as a draft. Only you can see drafts.</li><li>Submit it. The editor reads it and either accepts it or sends it back with a note.</li><li>Accepted stories are placed into an edition by the editor. When the edition is published, your byline is in print.</li></ol>`}</div>`;
   let list = [];
   try { list = await myStories(s.user.uid); } catch (e) { console.error(e); toast('Could not load your stories.', 'error'); }
   document.getElementById('count').textContent = list.length ? `${list.length}` : '';
@@ -22,7 +24,7 @@ async function render() {
       <td class="t-mono">${esc(st.section || SECTIONS[0])}</td>
       <td>${statusWord(st.status)}</td>
       <td class="t-mono">${esc(relTime(st.updatedAt))}</td>
-      <td class="t-actions">${st.status === 'published' && st.publishedIn ? `<a class="btn btn-sm btn-ghost" href="/paper/${esc(st.publishedIn)}/${esc(st.slug)}">Read in print</a>` : `<a class="btn btn-sm btn-ghost" href="/newsroom/write?id=${esc(st.id)}">${['draft', 'needs_revision'].includes(st.status) ? 'Edit' : 'View'}</a>`}${st.status === 'draft' ? ` <button class="btn btn-sm btn-danger" data-del="${esc(st.id)}">Delete</button>` : ''}</td>
+      <td class="t-actions">${st.status === 'published' && st.publishedIn ? `<a class="btn btn-sm btn-ghost" href="/paper/${esc(st.publishedIn)}/${esc(st.slug)}">Read in print</a>` : st.status === 'accepted' && s.profile.role === 'editor' ? `<a class="btn btn-sm" href="/newsroom/edition">Place in edition</a> <a class="btn btn-sm btn-ghost" href="/newsroom/write?id=${esc(st.id)}">Edit</a>` : `<a class="btn btn-sm btn-ghost" href="/newsroom/write?id=${esc(st.id)}">${['draft', 'needs_revision'].includes(st.status) || s.profile.role === 'editor' ? 'Edit' : 'View'}</a>`}${st.status === 'draft' ? ` <button class="btn btn-sm btn-danger" data-del="${esc(st.id)}">Delete</button>` : ''}</td>
     </tr>`).join('')}</tbody></table></div>`;
   host.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', async () => {
     if (!confirm('Delete this draft for good?')) return;

@@ -21,8 +21,20 @@ $('#new').addEventListener('submit', async (e) => {
 
 async function load() {
   [editions, pool] = await Promise.all([listAllEditions(), storiesByStatus(['accepted', 'published'])]);
+  // Coming from "Ready to print" with nothing selected: open the newest unpublished edition if there is one.
+  if (!selectedId) { const draft = editions.find((e) => e.status === 'draft'); if (draft) selectedId = draft.id; }
   renderList();
-  if (selectedId) { cur = await getEditionRaw(selectedId); if (cur) { cur.sections = cur.sections || []; history.replaceState(null, '', `?id=${selectedId}`); renderComposer(); } }
+  if (selectedId) { cur = await getEditionRaw(selectedId); if (cur) { cur.sections = cur.sections || []; history.replaceState(null, '', `?id=${selectedId}`); renderComposer(); return; } }
+  renderIdle();
+}
+/** No edition open: show the stories waiting for one, so a story marked ready is never invisible. */
+function renderIdle() {
+  const ready = pool.filter((st) => st.status === 'accepted');
+  actions.innerHTML = '';
+  $('#composer').innerHTML = `<div class="panel"><h2>Ready to print <span>${ready.length} ${ready.length === 1 ? 'story' : 'stories'}</span></h2>
+    ${ready.length ? `<div class="pool">${ready.map((st) => `<div class="pool-item"><div><b>${esc(st.title)}</b><small>${esc(st.section)} · By ${esc(st.byline)} · ${st.wordCount || 0} words</small></div><a class="btn btn-sm btn-ghost" href="/newsroom/write?id=${st.id}">Read</a></div>`).join('')}</div>
+      <p class="help" style="margin-top:1rem">Create an edition on the left (today's date is filled in), then pick a lead and add stories to sections.</p>`
+      : '<p class="count-empty">Nothing is waiting. Stories appear here once they are accepted or marked ready to print.</p>'}</div>`;
 }
 function renderList() {
   $('#edlist').innerHTML = editions.length ? editions.map((e) => `<button type="button" aria-selected="${e.id === selectedId}" data-id="${e.id}"><b>${esc(longDate(e.date || e.id))}</b>${statusWord(e.status)}</button>`).join('') : '<p class="count-empty">No editions yet.</p>';
@@ -66,7 +78,7 @@ function renderComposer() {
     try { await persist(true); await publishEdition(db, cur.id); toast('Published. It is in print.', 'success'); load(); } catch (e) { console.error(e); toast(e.message, 'error'); }
   });
   $('#unpublish')?.addEventListener('click', async () => { if (!confirm('Pull this edition from print? Readers will no longer see it.')) return; try { await unpublishEdition(db, cur.id); toast('Edition unpublished.'); load(); } catch (e) { toast(e.message, 'error'); } });
-  $('#delete')?.addEventListener('click', async () => { if (!confirm('Delete this draft edition?')) return; try { await deleteEdition(cur.id); selectedId = null; cur = null; history.replaceState(null, '', location.pathname); toast('Draft edition deleted.'); $('#composer').innerHTML = '<div class="panel"><p class="count-empty">Pick an edition on the left, or create one.</p></div>'; actions.innerHTML = ''; load(); } catch (e) { toast(e.message, 'error'); } });
+  $('#delete')?.addEventListener('click', async () => { if (!confirm('Delete this draft edition?')) return; try { await deleteEdition(cur.id); selectedId = null; cur = null; history.replaceState(null, '', location.pathname); toast('Draft edition deleted.'); load(); } catch (e) { toast(e.message, 'error'); } });
 }
 async function persist(quiet) {
   const sections = cur.sections.filter((x) => x.storyIds.length).map((x) => ({ name: x.name, storyIds: x.storyIds }));

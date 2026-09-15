@@ -4,3 +4,6 @@
 @import './components.css';
 @import './public.css';
 @import './admin.css';
+
+/* The newsroom redirects after saves and sign-in; cross-document transitions would abort. */
+@view-transition { navigation: none; }
