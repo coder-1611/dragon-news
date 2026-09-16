@@ -5,7 +5,7 @@ const crew = [
   { name: 'Benjamin Giles', title: 'Staff Writer', role: 'staff', blurb: '' },
   { name: 'Kolbe Berend', title: 'Staff Writer', role: 'staff', blurb: '' },
   { name: 'Rajvi Rangari', title: 'Staff Writer', role: 'staff', blurb: '' },
-  { name: 'Claire', title: 'Staff Writer', role: 'staff', blurb: '' },
+  { name: 'Claire Deville', title: 'Staff Writer', role: 'staff', blurb: '' },
 ];
 const P = (...ps) => ps.join('\n\n');
 const stories = [
@@ -54,7 +54,7 @@ const stories = [
       'The biggest change is a swerve drivetrain, which lets the robot move in any direction without turning first. It is faster and far harder to program. Sophomore Aiden Park is leading the software group. "Last year I was the person handing people zip ties," Park said. "This year I am the reason the robot drives into a wall. It is a promotion."',
       'The team is also fundraising for a second competition entry fee. A parts drive runs through the end of the month; a list of what they need is posted on the club board outside the shop.'
     ) },
-  { id: 's5', section: 'Arts', byline: 'Claire',
+  { id: 's5', section: 'Arts', byline: 'Claire Deville',
     title: 'Theatre picks "Our Town" for the fall play, and auditions are open to everyone',
     dek: 'Director Sam Whitaker wants a cast that looks like the school. No experience required, but bring a monologue.',
     bodyMd: P(
@@ -77,7 +77,7 @@ const stories = [
       'Give us seven minutes back, or six, or five plus a rule that says nobody is tardy if they are inside the building. Other 6A campuses in the district run six and seven minutes. Ours is the biggest building. It should have the longest walk.',
       'This is the opinion of the writer and not of Dragon News or Round Rock High School.'
     ) },
-  { id: 's7', section: 'Dragon Life', byline: 'Claire',
+  { id: 's7', section: 'Dragon Life', byline: 'Claire Deville',
     title: 'Homecoming week: the dress-up days, the parade route and where to be Friday',
     dek: 'Student Council released the schedule. Here is the whole week on one page.',
     bodyMd: P(
